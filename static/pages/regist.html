@@ -1,0 +1,15 @@
+            <form class="form-inline" ng-submit="regist()">
+              <div class="form-group">加入我们家吧~</div>
+              <div class="form-group" id="container">
+                <label class="sr-only">用户名</label>
+                <input type="text" required class="form-control"
+                  ng-model="userInfo.username" placeholder="你是谁!" />
+                <label class="sr-only">密码</label>
+                <input type="password1" required class="form-control"
+                  ng-model="userInfo.password1" placeholder="口令！" />
+                <label class="sr-only">暗号</label>
+                <input type="password2" required class="form-control"
+                  ng-model="userInfo.password2" placeholder="在家我叫你什么！" />
+              </div>
+              <button type="submit" class="btn btn-primary btn-enter">注册</button>
+            </form>
