@@ -1,0 +1,22 @@
+{
+  "name": "homeco",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "home"
+  ],
+  "author": "maning",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "connect-mongo": "^1.1.0",
+    "cookie-parser": "^1.4.1",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "mongoose": "^4.4.10"
+  }
+}
