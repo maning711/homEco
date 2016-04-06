@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(session({
-    secret: 'homeco',
+    secret: 'homEco',
     resave: true,
     saveUninitialized: false,
     cookie: {
@@ -32,13 +32,7 @@ app.use(session({
     store: sessionStore
 }));
 
-// set static resouces path
-app.use(express.static(path.join(__dirname, '/static')));
-app.use(function (req, res) {
-    res.sendFile(path.join(__dirname, './static/index.html'));
-});
-
-app.use('/api/validate',function(req, res) {
+app.get('/api/validate',function(req, res) {
     var userId = req.session._userId;
     if (userId) {
         Controllers.User.findUserById(userId, function(err, user) {
@@ -56,7 +50,7 @@ app.use('/api/validate',function(req, res) {
 });
 
 app.post('/api/login', function(req, res) {
-    var userInfo = req.session.userInfo;
+    var userInfo = req.body.userInfo;
     if (userInfo) {
         Controllers.User.findUserByInfo(userInfo, function(err, user) {
             if (err) {
@@ -74,7 +68,7 @@ app.post('/api/login', function(req, res) {
 });
 
 app.post('/api/regist', function(req, res) {
-    var userInfo = req.session.userInfo;
+    var userInfo = req.body.userInfo;
     if (userInfo) {
         Controllers.User.findByEmailOrCreate(userInfo, function(err, user) {
             if (err) {
@@ -91,10 +85,17 @@ app.post('/api/regist', function(req, res) {
 });
 
 app.get('/api/logout', function(req, res) {
+    res.json(200)
     delete req.session._userId
+});
+
+// set static resouces path
+app.use(express.static(path.join(__dirname, '/static')));
+app.use(function (req, res) {
+    res.sendFile(path.join(__dirname, './static/index.html'));
 });
 
 // listen the express server
 var server = app.listen(port, function () {
-    console.log('系统开始监听端口：' + port);
+    console.log('express is listening at ：' + port);
 });

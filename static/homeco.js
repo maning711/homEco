@@ -8,7 +8,7 @@ run(function($window, $rootScope, $http, $location) {
         method: 'GET'
     }).success(function(user) {
         $rootScope.me = user;
-        $location.path('/main');
+        $location.path('/');
     }).error(function(data) {
         $location.path('/login');
     });
@@ -20,8 +20,32 @@ run(function($window, $rootScope, $http, $location) {
             $rootScope.me = null;
             $location.path('/login');
         });
-    }
+    };
     $rootScope.$on('login', function(evt, me) {
         $rootScope.me = me;
-    })
+    });
+    $rootScope.daliyExp = function () {
+        $http({
+            url: '/api/daliyExp',
+            method: 'GET'
+        }).success(function() {
+            $location.path('/daliyExp');
+        });
+    };
+    $rootScope.incomes = function () {
+        $http({
+            url: '/api/incomes',
+            method: 'GET'
+        }).success(function() {
+            $location.path('/incomes');
+        });
+    };
+    $rootScope.reports = function () {
+        $http({
+            url: '/api/reports',
+            method: 'GET'
+        }).success(function() {
+            $location.path('/reports');
+        });
+    };
 });

@@ -3,16 +3,32 @@
  */
 angular.module('homEco').config(function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
-    $routeProvider.when('/main', {
+    $routeProvider.
+    when('/', {
         templateUrl: '/pages/main.html',
         controller: 'MainCtrl'
-    }).when('/login', {
+    }).
+    when('/login', {
         templateUrl: '/pages/login.html',
         controller: 'LoginCtrl'
-    }).when('/regist', {
+    }).
+    when('/regist', {
         templateUrl: '/pages/regist.html',
         controller: 'RegistCtrl'
-    }).otherwise({
+    }).
+    when('/daliyExp', {
+        templateUrl: '/pages/daliyExp.html',
+        controller: 'DaliyExpCtrl'
+    }).
+    when('/incomes', {
+        templateUrl: '/pages/incomes.html',
+        controller: 'IncomesCtrl'
+    }).
+    when('/reports', {
+        templateUrl: '/pages/reports.html',
+        controller: 'ReportsCtrl'
+    }).
+    otherwise({
         redirectTo: '/login'
     });
 });

@@ -7,9 +7,7 @@ angular.module('homEco').controller('RegistCtrl', function($scope, $http, $locat
             url: '/api/regist',
             method: 'POST',
             data: {
-                username: $scope.userInfo.username,
-                password1: $scope.userInfo.password1,
-                password2: $scope.userInfo.password2
+                userInfo: $scope.userInfo
             }
         }).success(function(user) {
             $location.path('/login');
