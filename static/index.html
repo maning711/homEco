@@ -1,15 +1,11 @@
 <!doctype html>
 <html ng-app="homEco">
   <head>
-    <title>homEco</title>
+    <title>家居智能管理</title>
     <link rel="stylesheet" type="text/css" href="/components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/styles/common.css">
-    <script type="text/javascript" src="/components/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="/components/bootstrap/dist/js/bootstrap.js"></script>
-    <script type="text/javascript" src="/components/angular/angular.js"></script>
-    <script type="text/javascript" src="/components/angular-route/angular-route.js"></script>
   </head>
-  <base href="/" />
+  <base href="/"/>
   <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -19,21 +15,36 @@
         <nav class="collapse navbar-collapse" role="navigation">
           <ul class="nav navbar-nav navbar-right" ng-show="me">
             <div style="margin-top: 10px;">
-              {{me.username}}
-              <div ng-show="me.username"><a href="#" ng-click="logout()">Log out</a></div>
-              <div ng-hide="me.username"><a href="#" ng-click="logout()">Log out</a></div>
+              <li>
+                <div style="color: white">{{me.password2}}</div>
+              </li>
+              <li>
+                <a href="#" ng-click="logout()">Log out</a>
+              </li>
             </div>
           </ul>
         </nav>
       </div>
     </div>
-    <div class="container" style="margin-top:100px;">
-      <div class="row" ng-view></div>
+    <div class="container" style="margin-top:100px;height: 100%">
+      <div id="left" ng-show="me" style="width:10%;float:left;background-color: gray;margin: 0 auto;padding: 5px;text-align: center">
+        <div style="margin: 5px;"><button type="submit" class="btn btn-primary btn-enter" ng-click="daliyExp()">平时支出</button></div>
+        <div style="margin: 5px;"><button type="submit" class="btn btn-primary btn-enter" ng-click="incomes()">各项收入</button></div>
+        <div style="margin: 5px;"><button type="submit" class="btn btn-primary btn-enter" ng-click="reports()">月末统计</button></div>
+      </div>
+      <div id="right" class="row" style="width:85%;float:right;background-color: gray;margin: 0 auto;" ng-view></div>
     </div>
+    <script type="text/javascript" src="/components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="/components/bootstrap/dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/components/angular/angular.js"></script>
+    <script type="text/javascript" src="/components/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="/homeco.js"></script>
     <script type="text/javascript" src="/route.js"></script>
     <script type="text/javascript" src="/controllers/login.js"></script>
     <script type="text/javascript" src="/controllers/regist.js"></script>
     <script type="text/javascript" src="/controllers/main.js"></script>
+    <script type="text/javascript" src="/controllers/daliyExp.js"></script>
+    <script type="text/javascript" src="/controllers/incomes.js"></script>
+    <script type="text/javascript" src="/controllers/reports.js"></script>
   </body>
 </html>
