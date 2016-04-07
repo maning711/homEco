@@ -15,7 +15,7 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
+    "static/components",
     "test",
     "tests"
   ],
@@ -23,6 +23,8 @@
     "bootstrap": "^3.3.6",
     "angular": "^1.5.3",
     "angular-route": "^1.5.3",
-    "Chart.js": "^1.0.2"
+    "Chart.js": "^1.0.2",
+    "smalot-bootstrap-datetimepicker": "^2.3.8",
+    "bootstrap-datepicker": "^1.6.0"
   }
 }

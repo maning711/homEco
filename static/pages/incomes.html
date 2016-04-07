@@ -1,3 +1,43 @@
-            <div class="form-group" style="witdh:30%;height:500px;text-align:center;">
-              <label class="">本月收入</label>
+            <div class="panel panel-success" style="height:768px;">
+              <div class="panel-heading"><label style="font-size: 14pt">本月收入</label></div>
+              <div class="panel-body">
+                <form class="form-inline" ng-submit="saveIncome()">
+                  <div style="width:100%">
+                    <div class="input-group" style="float: left">
+                      <input type="text" ng-model="typeIncome" class="form-control" style="width:60%" disabled placeholder="请选择收入种别" />
+                      <div class="btn-group">
+                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">选择<span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                          <li><a href="javascript:;" ng-click="select('工资')">工资</a></li>
+                          <li><a href="javascript:;" ng-click="select('补贴')">补贴</a></li>
+                          <li><a href="javascript:;" ng-click="select('理财收入')">理财收入</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div style="margin-left: 20px;float:left;">
+                      <div class="input-group">
+                        <input size="16" type="text" class="form-control" ng-model="selectedDate" placeholder="请选选择日期" disabled />
+                        <span class="input-group-addon"><a href="javascript:;" ng-click="deleteDate()"><i class="glyphicon glyphicon-remove"></i></a></span>
+                        <span class="input-group-addon date form_datetime" data-date="2012-12-21T15:25:00Z"><a href="javascript:;"><i class="glyphicon glyphicon-th"></i></a><input size="16" type="text" ng-model="selectedDate" style="display: block" /></span>
+                      </div>
+                      <script type="text/javascript">
+                        $(".form_datetime").datepicker({
+                            format: "yyyy MM dd",
+                            autoclose: true,
+                            todayBtn: true,
+                            pickerPosition: "bottom-left"
+                        });
+                    </script>
+                    </div>
+                    <div style="margin-left: 30px;float:left;padding-top: 8px;">
+                      <label style="font-size: 12pt" class="text-warning">入账方式</label>
+                      <label style="font-size: 11pt"><input type="checkbox" id="payType1" value="1">现金</label>
+                      <label style="font-size: 11pt"><input type="checkbox" id="payType2" value="2">支付宝</label>
+                      <label style="font-size: 11pt"><input type="checkbox" id="payType3" value="3">微信</label>
+                    </div>
+                  </div>
+                  <br>
+                  <div style="margin-top:50px;float: right;"><button type="submit" class="btn btn-primary btn-enter">登录</button></div>
+                </form>
+              </div>
             </div>
