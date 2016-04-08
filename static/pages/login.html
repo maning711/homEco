@@ -2,14 +2,14 @@
               <div class="form-group" id="container">
                 <label class="sr-only">用户名</label>
                 <input type="text" required class="form-control"
-                  ng-model="userInfo.username" placeholder="你是谁!" />
+                  ng-model="userInfo.username" placeholder="你是谁" />
                 <label class="sr-only">密码</label>
                 <input type="password1" required class="form-control"
-                  ng-model="userInfo.password1" placeholder="口令！" />
+                  ng-model="userInfo.password1" placeholder="口令" />
                 <label class="sr-only">暗号</label>
                 <input type="password2" required class="form-control"
-                  ng-model="userInfo.password2" placeholder="在家我叫你什么！" />
+                  ng-model="userInfo.password2" placeholder="在家我叫你什么" />
               </div>
               <button type="submit" class="btn btn-primary btn-enter">登录</button>
             </form>
-            <a href="#" ng-click="goRegist()">没有账号！？</a>
+            <button type="button" class="btn btn btn-info navbar-btn" ng-click="goRegist()">没有账号！？</button>
