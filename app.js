@@ -84,9 +84,27 @@ app.post('/api/regist', function(req, res) {
     }
 });
 
+app.post('/api/saveTradeInfo', function(req, res) {
+    var tradeInfo = req.body.tradeInfo;
+    if (tradeInfo) {
+        Controllers.TradeRecds.saveTradeInfo(tradeInfo, function(err, user) {
+            if (err) {
+                res.json(401, {
+                    msg: err
+                });
+            } else {
+                res.json(tradeInfo);
+            }
+        });
+    } else {
+        res.json(403);
+    }
+});
+
 app.get('/api/logout', function(req, res) {
-    res.json(200)
+    req.session._userId = null;
     delete req.session._userId
+    res.json(200)
 });
 
 // set static resouces path
