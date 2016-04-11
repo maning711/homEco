@@ -1,20 +1,28 @@
 /**
  * created by maning
  */
-angular.module('homEco').controller('IncomesCtrl', function($scope, $rootScope, $http, $location){
+angular.module('homEco').controller('IncomesCtrl', function($scope, $rootScope, $http){
+    $scope.tradeInfo = {
+        incomeType: '',
+        tradeDate: '',
+        content: '',
+        payType1: false,
+        payType2: false,
+        payType3: false
+    }; 
     $scope.select = function (string) {
-        $scope.typeIncome = string;
+        $scope.tradeInfo.incomeType = string;
     };
     $scope.deleteDate = function () {
-        $scope.selectedDate = '';
+        $scope.tradeInfo.tradeDate = '';
     };
     $scope.clear = function () {
-        $scope.typeIncome = '';
-        $scope.selectedDate = '';
-        $scope.content = '';
-        $scope.payType1 = false;
-        $scope.payType2 = false;
-        $scope.payType3 = false;
+        $scope.tradeInfo.incomeType = '';
+        $scope.tradeInfo.tradeDate = '';
+        $scope.tradeInfo.content = '';
+        $scope.tradeInfo.payType1 = false;
+        $scope.tradeInfo.payType2 = false;
+        $scope.tradeInfo.payType3 = false;
     };
     $scope.saveIncome = function() {
         $http({
@@ -23,10 +31,11 @@ angular.module('homEco').controller('IncomesCtrl', function($scope, $rootScope, 
             data: {
                 tradeInfo: $scope.tradeInfo
             }
-        }).success(function(user) {
-            $rootScope.alertSuccess = true;
-        }).error(function(data) {
-            $rootScope.alertDanger = true;
+        }).success(function() {
+            $rootScope.messg.saveSuccess = true;
+            $scope.clear();
+        }).error(function() {
+            $rootScope.messg.alertDanger = true;
         })
     }
 });

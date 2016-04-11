@@ -58,7 +58,12 @@ app.post('/api/login', function(req, res) {
                     msg: err
                 });
             } else {
+                var users = {
+                    username: user.username,
+                    password2: user.password2
+                };
                 req.session._userId = user._id;
+                req.session.userInfo = users;
                 res.json(user);
             }
         });
@@ -86,8 +91,20 @@ app.post('/api/regist', function(req, res) {
 
 app.post('/api/saveTradeInfo', function(req, res) {
     var tradeInfo = req.body.tradeInfo;
+    tradeInfo.userInfo = req.session.userInfo;
+    var timeStmp = new Date().getTime();
+    tradeInfo.timeStmp = timeStmp;
+    var payType = '';
+    if (tradeInfo.payType1) {
+        payType = '1';
+    } else if (tradeInfo.payType2) {
+        payType = '2';
+    } else if (tradeInfo.payType3) {
+        payType = '3';
+    }
+    tradeInfo.payType = payType;
     if (tradeInfo) {
-        Controllers.TradeRecds.saveTradeInfo(tradeInfo, function(err, user) {
+        Controllers.TradeRecodes.saveTradeInfo(tradeInfo, function(err, user) {
             if (err) {
                 res.json(401, {
                     msg: err
@@ -103,7 +120,9 @@ app.post('/api/saveTradeInfo', function(req, res) {
 
 app.get('/api/logout', function(req, res) {
     req.session._userId = null;
-    delete req.session._userId
+    req.session.userInfo = null;
+    delete req.session._userId;
+    delete req.session.userInfo;
     res.json(200)
 });
 

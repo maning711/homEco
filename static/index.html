@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/styles/common.css">
   </head>
   <base href="/"/>
-  <body ng-init="init()">
+  <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -29,11 +29,16 @@
         </nav>
       </div>
     </div>
+    <div style="height:60px"></div>
     <!-- message area -->
-    <div class="container alert alert-success" ng-hide="alertSuccess" style="margin-top:80px;display: none" role="alert"></div>
-    <div class="container alert alert-danger" ng-hide="alertDanger" style="margin-top:80px;display: none" role="alert"></div>
+    <div class="container alert alert-success" ng-show="messg.saveSuccess" role="alert">登录成功信息！
+      <button type="button" class="close" aria-label="Close" ng-click="close('saveSuccess')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="container alert alert-danger" ng-show="messg.alertDanger" role="alert">登录失败信息！
+      <button type="button" class="close" aria-label="Close" ng-click="close('alertDanger')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
     <!-- info area -->
-    <div class="container" style="margin-top:80px;">
+    <div class="container">
       <h3>
         <span class="label label-warning" ng-show="me">上月财务评级：E</span>
         <span class="label label-success" ng-show="me" style="margin-left: 10px;">本月财务预评级：A</span>
@@ -41,7 +46,7 @@
       </h3>
     </div>
     <!-- content area -->
-    <div class="container" style="margin-top:30px;height: 100%">
+    <div class="container" style="margin-top:10px;height: 100%">
       <div id="left" class="jumbotron" ng-show="me" style="width:11%;float:left;margin: 0 auto;padding: 10px;text-align: center">
         <div style="margin: 10px;"><button type="button" class="btn btn-danger btn-block" ng-click="daliyExp()">日常支出</button></div>
         <div style="margin: 10px;"><button type="button" class="btn btn-success btn-block" ng-click="incomes()">各项收入</button></div>
