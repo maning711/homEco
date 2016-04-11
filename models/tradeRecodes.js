@@ -12,7 +12,11 @@ var TradeRecds = new Schema({
     costType: String,
     payType: String,
     tradeFlg: String,
-    content: String
+    content: String,
+    updateStamp: String,
+    updateUser: String,
+    createStamp: String,
+    createUser: String
 });
 
 module.exports = TradeRecds;

@@ -3,6 +3,13 @@
  */
 angular.module('homEco', ['ngRoute']).
 run(function($window, $rootScope, $http, $location) {
+    $rootScope.messg = {
+        saveSuccess: false,
+        alertDanger: false
+    };
+    $rootScope.close = function (messageName) {
+        $rootScope.messg[messageName] = false;
+    };
     $http({
         url: '/api/validate',
         method: 'GET'

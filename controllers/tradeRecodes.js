@@ -3,55 +3,28 @@
  */
 var db = require('../models');
 
-// exports.findUserById = function (_userId, callback) {
-//     db.TradeRecds.findOne({
-//         _id: _userId
-//     }, callback);
-// };
-
 exports.saveTradeInfo = function (tradeInfo, callback) {
     db.TradeRecds.findOne({
-        username: tradeInfo.username,
-        password2: tradeInfo.password2,
-        tradeDate: tradeInfo.tradeDate
-    }, function (err, tradeInfo) {
-        if (tradeInfo) {
-            callback(null, tradeInfo);
+        username: tradeInfo.userInfo.username,
+        password2: tradeInfo.userInfo.password2,
+        tradeDate: tradeInfo.timeStmp
+    }, function (err, tradeInfos) {
+        if (tradeInfos) {
+            callback(null, tradeInfos);
         } else {
             tradeRecds = new db.TradeRecds;
-            tradeRecds.username = tradeInfo.username;
-            tradeRecds.password1 = tradeInfo.password1;
-            tradeRecds.password2 = tradeInfo.password2;
-            tradeRecds.incomingMont = "";
-            tradeRecds.creaditCard = "";
-            tradeRecds.conment = "";
+            tradeRecds.username = tradeInfo.userInfo.username;
+            tradeRecds.password2 = tradeInfo.userInfo.password2;
+            tradeRecds.tradeDate = tradeInfo.tradeDate;
+            tradeRecds.incomeType = tradeInfo.incomeType;
+            tradeRecds.costType = tradeInfo.costType;
+            tradeRecds.payType = tradeInfo.payType;
+            tradeRecds.tradeFlg = tradeInfo.tradeFlg;
+            tradeRecds.updateStamp = tradeInfo.timeStmp;
+            tradeRecds.updateUser = tradeInfo.userInfo.username;
+            tradeRecds.createStamp = tradeInfo.timeStmp;
+            tradeRecds.createUser = tradeInfo.userInfo.username;
             tradeRecds.save(callback);
         }
     });
 };
-
-// exports.online = function (_userId, callback) {
-//     db.User.findOneAndUpdate({
-//       _id: _userId
-//     }, {
-//       $set: {
-//         online: true
-//       }
-//     }, callback)
-// };
-
-// exports.offline = function (_userId, callback) {
-//     db.User.findOneAndUpdate({
-//         _id: _userId
-//     },{
-//         $set: {
-//             online: false
-//         }
-//     },callback)
-// }
-
-// exports.getOnlineUsers = function (callback) {
-//     db.User.find({
-//         online:true
-//     },callback)
-// }
