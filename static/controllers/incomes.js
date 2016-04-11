@@ -1,5 +1,5 @@
 /**
- * created by maning
+ * created by maning 
  */
 angular.module('homEco').controller('IncomesCtrl', function($scope, $rootScope, $http){
     $scope.tradeInfo = {
