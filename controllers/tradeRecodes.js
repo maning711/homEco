@@ -20,6 +20,7 @@ exports.saveTradeInfo = function (tradeInfo, callback) {
             tradeRecds.costType = tradeInfo.costType;
             tradeRecds.payType = tradeInfo.payType;
             tradeRecds.tradeFlg = tradeInfo.tradeFlg;
+            tradeRecds.content = tradeInfo.content;
             tradeRecds.updateStamp = tradeInfo.timeStmp;
             tradeRecds.updateUser = tradeInfo.userInfo.username;
             tradeRecds.createStamp = tradeInfo.timeStmp;

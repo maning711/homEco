@@ -11,7 +11,11 @@ var HomeAccount = new Schema({
     loanHouse: String,
     lastMontLevel: String,
     currentMontLevel: String,
-    conment: String
+    conment: String,
+    updateStamp: String,
+    updateUser: String,
+    createStamp: String,
+    createUser: String
 });
 
 module.exports = HomeAccount;

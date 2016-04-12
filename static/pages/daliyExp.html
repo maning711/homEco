@@ -1,53 +1,61 @@
             <div class="panel panel-danger" style="height:758px;overflow: hidden;">
-              <div class="panel-heading"><label style="font-size: 14pt">日常支出</label></div>
+              <div class="panel-heading"><label style="font-size: 14pt">当月日常支出</label></div>
               <div class="panel-body">
-                <form class="form-inline" ng-submit="saveIncome()">
+                <form class="form-inline" ng-submit="saveCost()">
                   <div style="width:100%">
                     <div style="width:100%">
-                    <div class="input-group" style="float: left">
-                      <input type="text" ng-model="typeIncome" class="form-control" style="width:60%" required disabled placeholder="请选择收入种别" />
-                      <div class="btn-group">
-                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">选择<span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                          <li><a href="javascript:;" ng-click="select('工资')">工资</a></li>
-                          <li><a href="javascript:;" ng-click="select('补贴')">补贴</a></li>
-                          <li><a href="javascript:;" ng-click="select('理财收入')">理财收入</a></li>
-                        </ul>
+                      <div class="input-group" style="float: left">
+                        <input type="text" ng-model="tradeInfo.incomeType" class="form-control" style="width:60%" required disabled placeholder="请选择支出种别" />
+                        <div class="btn-group">
+                          <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">选择<span class="caret"></span></button>
+                          <ul class="dropdown-menu">
+                            <li><a href="javascript:;" title="生活所需物品，如卫生纸" ng-click="select('生活耗材')">生活耗材</a></li>
+                            <li><a href="javascript:;" title="婚丧事务，给亲人孩子购买礼品等" ng-click="select('家庭事务')">家庭事务</a></li>
+                            <li><a href="javascript:;" title="所有医疗费用，药费等" ng-click="select('医疗支出')">医疗支出</a></li>
+                            <li><a href="javascript:;" title="买跟业务相关教材，学车，学技能，考证等等" ng-click="select('职业充电')">职业充电</a></li>
+                            <li><a href="javascript:;" title="所有衣物，鞋帽，化妆品及奢侈品等" ng-click="select('服装化妆品消费')">服装化妆品消费</a></li>
+                            <li><a href="javascript:;" title="水电气暖气，车位，物业管理费等" ng-click="select('各项生活成本费用')">各项生活成本费用</a></li>
+                            <li><a href="javascript:;" title="购买各种债券，保险，银行理财，基金，股票等有价证券" ng-click="select('理财支出')">理财支出</a></li>
+                            <li><a href="javascript:;" title="买房，买车等数额较大支出，需要所有成员通过" ng-click="select('大额支出')">大额支出</a></li>
+                          </ul>
+                        </div>
                       </div>
-                    </div>
-                    <div style="margin-left: 20px;float:left;">
-                      <div class="date input-group form_datetime">
-                        <input size="16" type="text" class="form-control" ng-model="selectedDate" placeholder="请选选择日期" required disabled />
-                        <span class="input-group-addon"><a href="javascript:;"><i class="glyphicon glyphicon-th"></i></a></span>
-                        <span class="input-group-addon" ng-click="deleteDate();$event.stopPropagation();"><a href="javascript:;"><i class="glyphicon glyphicon-remove"></i></a></span>
+                      <div style="margin-left: 20px;float:left;">
+                        <div class="date input-group form_datetime">
+                          <input size="16" type="text" class="form-control" ng-model="tradeInfo.tradeDate" placeholder="请选选择日期" required disabled />
+                          <span class="input-group-addon"><a href="javascript:;"><i class="glyphicon glyphicon-th"></i></a></span>
+                          <span class="input-group-addon"><a href="javascript:;" ng-click="deleteDate();"><i class="glyphicon glyphicon-remove"></i></a></span>
+                        </div>
+                        <script type="text/javascript">
+                          $(".form_datetime").datepicker({
+                              format: "yyyy/mm/dd",
+                              autoclose: true,
+                              todayBtn: true,
+                              todayHighlight: true,
+                              container: 'div.date'
+                          });
+                        </script>
                       </div>
-                      <script type="text/javascript">
-                        $(".form_datetime").datepicker({
-                            format: "yyyy/mm/dd",
-                            autoclose: true,
-                            todayBtn: true,
-                            todayHighlight: true,
-                            container: 'div.date'
-                        });
-                      </script>
-                    </div>
-                    <div style="margin-left: 30px;float:left;padding-top: 8px;">
-                      <label style="font-size: 12pt" class="text-warning">入账方式</label>
-                      <label style="font-size: 11pt"><input ng-model="payType1" type="checkbox" value="1">现金</label>
-                      <label style="font-size: 11pt"><input ng-model="payType2" type="checkbox" value="2">支付宝</label>
-                      <label style="font-size: 11pt"><input ng-model="payType3" type="checkbox" value="3">微信</label>
-                    </div>
+                      <div style="margin-left: 30px;float:left;padding-top: 8px;">
+                        <label style="font-size: 12pt" class="text-warning">支出方式</label>
+                        <label style="font-size: 11pt"><input ng-model="tradeInfo.costType1" type="checkbox">现金</label>
+                        <label style="font-size: 11pt"><input ng-model="tradeInfo.costType2" type="checkbox">支付宝</label>
+                        <label style="font-size: 11pt"><input ng-model="tradeInfo.costType3" type="checkbox">微信</label>
+                        <label style="font-size: 11pt"><input ng-model="tradeInfo.costType4" type="checkbox">微信</label>
+                      </div>
                     </div>
                     <br>
                     <div style="margin-top: 50px;">
                       <div style="width:100%">
-                        <textarea style="width: 100%;resize: none;" ng-model="content" class="form-control" rows="25" placeholder="收入的大概原因及其他备注" required maxlength="2000"></textarea>
+                        <textarea style="width: 100%;resize: none;" ng-model="tradeInfo.content" class="form-control" rows="25" placeholder="收入详情及其他备注" required maxlength="2000"></textarea>
                       </div>
                     </div>
-                    
                   </div>
                   <br>
-                  <div style="margin-top:20px;text-align: center;"><button type="button" class="btn btn-warning btn-enter" ng-click="clear()">清空</button>&nbsp&nbsp<button type="submit" class="btn btn-primary btn-enter">登录</button></div>
+                  <div style="margin-top:20px;text-align: center;">
+                    <button type="button" class="btn btn-warning btn-enter" ng-click="clear()">清空</button>&nbsp&nbsp
+                    <button type="submit" class="btn btn-primary btn-enter">登录</button>
+                  </div>
                 </form>
               </div>
             </div>

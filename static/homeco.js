@@ -7,6 +7,11 @@ run(function($window, $rootScope, $http, $location) {
         saveSuccess: false,
         alertDanger: false
     };
+    $rootScope.homeAccts = {
+        lastMontLevel: '',
+        currentMontLevel: '',
+        cashAcct: '0'
+    };
     $rootScope.close = function (messageName) {
         $rootScope.messg[messageName] = false;
     };

@@ -8,7 +8,9 @@ angular.module('homEco').controller('IncomesCtrl', function($scope, $rootScope, 
         content: '',
         payType1: false,
         payType2: false,
-        payType3: false
+        payType3: false,
+        tradeFlg: '1',
+        costType: ''
     }; 
     $scope.select = function (string) {
         $scope.tradeInfo.incomeType = string;

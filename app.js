@@ -13,6 +13,7 @@ var sessionStore = new MongoStore({
     url: 'mongodb://localhost/homeco'
 });
 var Controllers = require('./controllers');
+var Commonfiles = require('./commonfiles');
 var app = express();
 
 var port = process.env.PORT || 3000;
@@ -32,7 +33,9 @@ app.use(session({
     store: sessionStore
 }));
 
+// check whether is a logined user
 app.get('/api/validate',function(req, res) {
+    debugger
     var userId = req.session._userId;
     if (userId) {
         Controllers.User.findUserById(userId, function(err, user) {
@@ -49,22 +52,62 @@ app.get('/api/validate',function(req, res) {
     }
 });
 
+// login the system
 app.post('/api/login', function(req, res) {
     var userInfo = req.body.userInfo;
     if (userInfo) {
-        Controllers.User.findUserByInfo(userInfo, function(err, user) {
+        var date = Commonfiles.Commons.getCurMont();
+        var loginInfo = {
+            logUsers : {
+                username: '',
+                password2: ''
+            },
+            homeAccts : {
+                lastMontLevel: '',
+                currentMontLevel: '',
+                cashAcct: ''
+            }
+        };
+
+        // get the total information of homeAccount
+        Controllers.HomeAccounts.findHomeAccountByDate(date, function(err, homeAcct) {
             if (err) {
                 res.json(500, {
                     msg: err
                 });
             } else {
-                var users = {
-                    username: user.username,
-                    password2: user.password2
-                };
-                req.session._userId = user._id;
-                req.session.userInfo = users;
-                res.json(user);
+                if (homeAcct != null) {
+                    loginInfo.homeAccts.lastMontLevel = homeAcct.lastMontLevel;
+                    loginInfo.homeAccts.currentMontLevel = homeAcct.currentMontLevel;
+                    loginInfo.homeAccts.cashAcct = homeAcct.cashAcct;
+
+                    // get the user's information
+                    Controllers.User.findUserByInfo(userInfo, function(err, user) {
+                        if (err) {
+                            res.json(500, {
+                                msg: err
+                            });
+                        } else {
+
+                            // return the user and account information to frontend
+                            if (user != null) {
+                                var users = {
+                                    username: '',
+                                    password2: ''
+                                };
+                                req.session._userId = user._id;
+                                users.username = user.username;
+                                users.password2 = user.password2;
+                                req.session.userInfo = users;
+
+                                loginInfo.logUsers.username = user.username;
+                                loginInfo.logUsers.password2 = user.password2;
+                                debugger;
+                                res.json(loginInfo);
+                            }
+                        }
+                    });
+                }
             }
         });
     } else {
@@ -72,6 +115,7 @@ app.post('/api/login', function(req, res) {
     }
 });
 
+// signup a user
 app.post('/api/regist', function(req, res) {
     var userInfo = req.body.userInfo;
     if (userInfo) {
@@ -89,18 +133,32 @@ app.post('/api/regist', function(req, res) {
     }
 });
 
+// save the inputed income information
 app.post('/api/saveTradeInfo', function(req, res) {
     var tradeInfo = req.body.tradeInfo;
+    var tradeFlg = tradeInfo.tradeFlg;
     tradeInfo.userInfo = req.session.userInfo;
     var timeStmp = new Date().getTime();
     tradeInfo.timeStmp = timeStmp;
     var payType = '';
-    if (tradeInfo.payType1) {
-        payType = '1';
-    } else if (tradeInfo.payType2) {
-        payType = '2';
-    } else if (tradeInfo.payType3) {
-        payType = '3';
+    if (tradeFlg == '1') {
+        if (tradeInfo.payType1) {
+            payType = '1';
+        } else if (tradeInfo.payType2) {
+            payType = '2';
+        } else if (tradeInfo.payType3) {
+            payType = '3';
+        }
+    } else if (tradeFlg == '2') {
+        if (tradeInfo.payType1) {
+            payType = '1';
+        } else if (tradeInfo.payType2) {
+            payType = '2';
+        } else if (tradeInfo.payType3) {
+            payType = '4';
+        } else if (tradeInfo.payType3) {
+            payType = '4';
+        }
     }
     tradeInfo.payType = payType;
     if (tradeInfo) {
@@ -118,6 +176,7 @@ app.post('/api/saveTradeInfo', function(req, res) {
     }
 });
 
+// logout the system
 app.get('/api/logout', function(req, res) {
     req.session._userId = null;
     req.session.userInfo = null;
