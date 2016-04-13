@@ -7,19 +7,14 @@ run(function($window, $rootScope, $http, $location) {
         saveSuccess: false,
         alertDanger: false
     };
-    $rootScope.homeAccts = {
-        lastMontLevel: '',
-        currentMontLevel: '',
-        cashAcct: '0'
-    };
     $rootScope.close = function (messageName) {
         $rootScope.messg[messageName] = false;
     };
     $http({
         url: '/api/validate',
         method: 'GET'
-    }).success(function(user) {
-        $rootScope.me = user;
+    }).success(function(loginInfo) {
+        $rootScope.loginInfo = loginInfo;
         $location.path('/');
     }).error(function(data) {
         $location.path('/login');
@@ -29,12 +24,12 @@ run(function($window, $rootScope, $http, $location) {
             url: '/api/logout',
             method: 'GET'
         }).success(function() {
-            $rootScope.me = null;
+            $rootScope.loginInfo = null;
             $location.path('/login');
         });
     };
-    $rootScope.$on('login', function(evt, me) {
-        $rootScope.me = me;
+    $rootScope.$on('login', function(evt, loginInfo) {
+        $rootScope.loginInfo = loginInfo;
     });
     $rootScope.daliyExp = function () {
         $http({

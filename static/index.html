@@ -15,11 +15,11 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="#">homEco</a>
         </div>
-        <nav class="collapse navbar-collapse" role="navigation">
+        <nav class="collapse navbar-collapse" role="navigation" ng-show="loginInfo.logUsers">
           <ul class="nav navbar-nav navbar-right" >
             <div style="margin-top: 10px;">
               <li>
-                <div style="color: white">{{loginInfo.users.password2}}</div>
+                <div style="color: white">{{loginInfo.logUsers.password2}}</div>
               </li>
               <li>
                 <a href="#" ng-click="logout()">Log out</a>
@@ -40,9 +40,9 @@
     <!-- info area -->
     <div class="container">
       <h3>
-        <span class="label label-warning" ng-show="loginInfo.homeAccts">上月财务评级：<label ng-model="loginInfo.homeAccts.lastMontLevel"></label></span>
-        <span class="label label-success" ng-show="loginInfo.homeAccts" style="margin-left: 10px;">本月财务预评级：<label ng-model="loginInfo.homeAccts.currentMontLevel"></label></span>
-        <span class="label" ng-show="loginInfo.homeAccts" style="margin-left: 10px;background-color: #000000;">家庭账户余额：<label ng-model="loginInfo.homeAccts.cashAcct"></label> 元</span>
+        <span class="label label-warning" ng-show="loginInfo.homeAccts">上月财务评级：<label ng-model="loginInfo.homeAccts.lastMontLevel">{{loginInfo.homeAccts.lastMontLevel}}</label></span>
+        <span class="label label-success" ng-show="loginInfo.homeAccts" style="margin-left: 10px;">本月财务预评级：<label ng-model="loginInfo.homeAccts.currentMontLevel">{{loginInfo.homeAccts.currentMontLevel}}</label></span>
+        <span class="label" ng-show="loginInfo.homeAccts" style="margin-left: 10px;background-color: #000000;">家庭账户余额：<label ng-model="loginInfo.homeAccts.cashAcct">{{loginInfo.homeAccts.cashAcct}}</label> 元</span>
       </h3>
     </div>
     <!-- content area -->

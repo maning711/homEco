@@ -35,16 +35,18 @@ app.use(session({
 
 // check whether is a logined user
 app.get('/api/validate',function(req, res) {
-    debugger
     var userId = req.session._userId;
-    if (userId) {
+    var loginInfo = req.session.loginInfo;
+    if (userId && loginInfo) {
         Controllers.User.findUserById(userId, function(err, user) {
             if (err) {
                 res.json(401, {
                     msg: err
                 });
             } else {
-                res.json(user);
+                req.session.loginInfo.logUsers.username = user.username;
+                req.session.loginInfo.logUsers.password2 = user.password2;
+                res.json(req.session.loginInfo);
             }
         });
     } else {
@@ -91,18 +93,10 @@ app.post('/api/login', function(req, res) {
 
                             // return the user and account information to frontend
                             if (user != null) {
-                                var users = {
-                                    username: '',
-                                    password2: ''
-                                };
                                 req.session._userId = user._id;
-                                users.username = user.username;
-                                users.password2 = user.password2;
-                                req.session.userInfo = users;
-
                                 loginInfo.logUsers.username = user.username;
                                 loginInfo.logUsers.password2 = user.password2;
-                                debugger;
+                                req.session.loginInfo = loginInfo;
                                 res.json(loginInfo);
                             }
                         }
@@ -137,7 +131,7 @@ app.post('/api/regist', function(req, res) {
 app.post('/api/saveTradeInfo', function(req, res) {
     var tradeInfo = req.body.tradeInfo;
     var tradeFlg = tradeInfo.tradeFlg;
-    tradeInfo.userInfo = req.session.userInfo;
+    tradeInfo.userInfo = req.session.loginInfo.logUsers;
     var timeStmp = new Date().getTime();
     tradeInfo.timeStmp = timeStmp;
     var payType = '';
@@ -179,9 +173,9 @@ app.post('/api/saveTradeInfo', function(req, res) {
 // logout the system
 app.get('/api/logout', function(req, res) {
     req.session._userId = null;
-    req.session.userInfo = null;
+    req.session.loginInfo = null;
     delete req.session._userId;
-    delete req.session.userInfo;
+    delete req.session.loginInfo;
     res.json(200)
 });
 
