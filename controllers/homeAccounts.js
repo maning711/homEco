@@ -8,3 +8,11 @@ exports.findHomeAccountByDate = function (_date, callback) {
         date: _date
     }, callback);
 };
+
+exports.updateHomeAccount = function (tradeInfo, callback) {
+    db.HomeAccounts.findOneAndUpdate({
+        date: tradeInfo.date
+    }, {
+        moneyNum: tradeInfo.moneyNum
+    }, callback);
+};

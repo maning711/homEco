@@ -135,6 +135,10 @@ app.post('/api/saveTradeInfo', function(req, res) {
     var timeStmp = new Date().getTime();
     tradeInfo.timeStmp = timeStmp;
     var payType = '';
+    tradeInfo.date = Commonfiles.Commons.getCurMont();
+    tradeInfo.cashAcct = '';
+
+    // payType of inconmes
     if (tradeFlg == '1') {
         if (tradeInfo.payType1) {
             payType = '1';
@@ -144,6 +148,8 @@ app.post('/api/saveTradeInfo', function(req, res) {
             payType = '3';
         }
     } else if (tradeFlg == '2') {
+
+        // payType of cost
         if (tradeInfo.payType1) {
             payType = '1';
         } else if (tradeInfo.payType2) {
@@ -156,12 +162,25 @@ app.post('/api/saveTradeInfo', function(req, res) {
     }
     tradeInfo.payType = payType;
     if (tradeInfo) {
-        Controllers.TradeRecodes.saveTradeInfo(tradeInfo, function(err, user) {
+        Controllers.TradeRecodes.saveTradeInfo(tradeInfo, function(err) {
             if (err) {
                 res.json(401, {
                     msg: err
                 });
             } else {
+
+                // count the home accout again
+                var cashNow = Commonfiles.Commons.caculateTwoObj(req.session.loginInfo.homeAccts.cashAcct, tradeInfo.moneyNum, '+');
+                tradeInfo.cashAcct = cashNow;
+                Controllers.HomeAccounts.updateHomeAccount(tradeInfo, function(err) {
+                    if (err) {
+                        res.json(500, {
+                            msg: err
+                        });
+                    } else {
+                        req.session.loginInfo.homeAccts.cashAcct = cashNow;
+                    }
+                });
                 res.json(tradeInfo);
             }
         });

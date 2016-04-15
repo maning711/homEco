@@ -15,6 +15,7 @@ exports.saveTradeInfo = function (tradeInfo, callback) {
             tradeRecds = new db.TradeRecds;
             tradeRecds.username = tradeInfo.userInfo.username;
             tradeRecds.password2 = tradeInfo.userInfo.password2;
+            tradeRecds.moneyNum = tradeInfo.moneyNum;
             tradeRecds.tradeDate = tradeInfo.tradeDate;
             tradeRecds.incomeType = tradeInfo.incomeType;
             tradeRecds.costType = tradeInfo.costType;

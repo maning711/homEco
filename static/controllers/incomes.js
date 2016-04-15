@@ -3,6 +3,7 @@
  */
 angular.module('homEco').controller('IncomesCtrl', function($scope, $rootScope, $http){
     $scope.tradeInfo = {
+        moneyNum: '',
         incomeType: '',
         tradeDate: '',
         content: '',
@@ -21,6 +22,7 @@ angular.module('homEco').controller('IncomesCtrl', function($scope, $rootScope, 
     $scope.clear = function () {
         $scope.tradeInfo.incomeType = '';
         $scope.tradeInfo.tradeDate = '';
+        $scope.tradeInfo.moneyNum = '';
         $scope.tradeInfo.content = '';
         $scope.tradeInfo.payType1 = false;
         $scope.tradeInfo.payType2 = false;
@@ -33,8 +35,9 @@ angular.module('homEco').controller('IncomesCtrl', function($scope, $rootScope, 
             data: {
                 tradeInfo: $scope.tradeInfo
             }
-        }).success(function() {
+        }).success(function(tradeInfo) {
             $rootScope.messg.saveSuccess = true;
+            $rootScope.loginInfo.homeAccts.cashAcct = tradeInfo.cashAcct;
             $scope.clear();
         }).error(function() {
             $rootScope.messg.alertDanger = true;

@@ -7,6 +7,7 @@ var Schema = mongoose.Schema;
 var TradeRecds = new Schema({
     username: String,
     password2: String,
+    moneyNum: String,
     tradeDate: String,
     incomeType: String,
     costType: String,
