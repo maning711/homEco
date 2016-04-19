@@ -1,8 +1,9 @@
 /**
  * created by maning
  */
-angular.module('homEco').controller('DaliyExpCtrl', function($scope, $http, $location){
+angular.module('homEco').controller('DaliyExpCtrl', function($scope, $rootScope, $http, $location){
     $scope.tradeInfo = {
+        moneyNum: '',
         costType: '',
         tradeDate: '',
         content: '',
@@ -14,7 +15,7 @@ angular.module('homEco').controller('DaliyExpCtrl', function($scope, $http, $loc
         incomeType: ''
     }; 
     $scope.select = function (string) {
-        $scope.tradeInfo.incomeType = string;
+        $scope.tradeInfo.costType = string;
     };
     $scope.deleteDate = function () {
         $scope.tradeInfo.tradeDate = '';
@@ -23,10 +24,11 @@ angular.module('homEco').controller('DaliyExpCtrl', function($scope, $http, $loc
         $scope.tradeInfo.costType = '';
         $scope.tradeInfo.tradeDate = '';
         $scope.tradeInfo.content = '';
-        $scope.tradeInfo.payType1 = false;
-        $scope.tradeInfo.payType2 = false;
-        $scope.tradeInfo.payType3 = false;
-        $scope.tradeInfo.payType4 = false;
+        $scope.tradeInfo.moneyNum = '';
+        $scope.tradeInfo.costType1 = false;
+        $scope.tradeInfo.costType2 = false;
+        $scope.tradeInfo.costType3 = false;
+        $scope.tradeInfo.costType4 = false;
     };
     $scope.saveCost = function() {
         $http({
@@ -35,8 +37,9 @@ angular.module('homEco').controller('DaliyExpCtrl', function($scope, $http, $loc
             data: {
                 tradeInfo: $scope.tradeInfo
             }
-        }).success(function() {
+        }).success(function(tradeInfos) {
             $rootScope.messg.saveSuccess = true;
+            $rootScope.loginInfo.homeAccts.cashAcct = tradeInfos.cashAcct;
             $scope.clear();
         }).error(function() {
             $rootScope.messg.alertDanger = true;

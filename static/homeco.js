@@ -25,6 +25,8 @@ run(function($window, $rootScope, $http, $location) {
             method: 'GET'
         }).success(function() {
             $rootScope.loginInfo = null;
+            $rootScope.messg.saveSuccess = false;
+            $rootScope.messg.alertDanger = false;
             $location.path('/login');
         });
     };

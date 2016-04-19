@@ -13,6 +13,8 @@ exports.updateHomeAccount = function (tradeInfo, callback) {
     db.HomeAccounts.findOneAndUpdate({
         date: tradeInfo.date
     }, {
-        moneyNum: tradeInfo.moneyNum
-    }, callback);
+        cashAcct: tradeInfo.cashAcct,
+        updateStamp: tradeInfo.timeStmp,
+        updateUser: tradeInfo.userInfo.username
+    }, null, callback);
 };

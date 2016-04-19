@@ -19,7 +19,7 @@
                         <div class="date input-group form_datetime">
                           <input size="16" type="text" class="form-control" ng-model="tradeInfo.tradeDate" placeholder="请选选择日期" required disabled />
                           <span class="input-group-addon"><a href="javascript:;"><i class="glyphicon glyphicon-th"></i></a></span>
-                          <span class="input-group-addon"><a href="javascript:;" ng-click="deleteDate();"><i class="glyphicon glyphicon-remove"></i></a></span>
+                          <span class="input-group-addon"><a href="javascript:;" ng-click="deleteDate();$event.stopPropagation()"><i class="glyphicon glyphicon-remove"></i></a></span>
                         </div>
                         <script type="text/javascript">
                           $(".form_datetime").datepicker({
@@ -35,8 +35,8 @@
                         <label style="font-size: 11pt" class="text-warning">实际金额</label>
                         <input type="text" class="form-control" ng-model="tradeInfo.moneyNum" placeholder="输入金额" size="10" required maxlength="10"></input>
                       </div>
-                      <div style="margin-left: 10px;float:left;">
-                        <label style="font-size: 11pt" class="text-warning">入账方式</label>
+                      <div style="margin-left: 10px;float:left;padding-top: 5px;">
+                        <label style="font-size: 11pt;" class="text-warning">入账方式</label>
                         <label style="font-size: 11pt"><input ng-model="tradeInfo.payType1" type="checkbox">现金</label>
                         <label style="font-size: 11pt"><input ng-model="tradeInfo.payType2" type="checkbox">支付宝</label>
                         <label style="font-size: 11pt"><input ng-model="tradeInfo.payType3" type="checkbox">微信</label>

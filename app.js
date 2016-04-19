@@ -141,23 +141,23 @@ app.post('/api/saveTradeInfo', function(req, res) {
     // payType of inconmes
     if (tradeFlg == '1') {
         if (tradeInfo.payType1) {
-            payType = '1';
+            payType = '11';
         } else if (tradeInfo.payType2) {
-            payType = '2';
+            payType = '12';
         } else if (tradeInfo.payType3) {
-            payType = '3';
+            payType = '13';
         }
     } else if (tradeFlg == '2') {
 
         // payType of cost
-        if (tradeInfo.payType1) {
-            payType = '1';
-        } else if (tradeInfo.payType2) {
-            payType = '2';
-        } else if (tradeInfo.payType3) {
-            payType = '4';
-        } else if (tradeInfo.payType3) {
-            payType = '4';
+        if (tradeInfo.costType1) {
+            payType = '21';
+        } else if (tradeInfo.costType2) {
+            payType = '22';
+        } else if (tradeInfo.costType3) {
+            payType = '23';
+        } else if (tradeInfo.costType4) {
+            payType = '24';
         }
     }
     tradeInfo.payType = payType;
@@ -170,15 +170,23 @@ app.post('/api/saveTradeInfo', function(req, res) {
             } else {
 
                 // count the home accout again
-                var cashNow = Commonfiles.Commons.caculateTwoObj(req.session.loginInfo.homeAccts.cashAcct, tradeInfo.moneyNum, '+');
+                var type = '';
+                var cashNow = 0;
+                var oldAcct = req.session.loginInfo.homeAccts.cashAcct;
+                var newAcct = tradeInfo.moneyNum;
+                if (tradeFlg == '1') {
+                    type = '+'
+                } else if (tradeFlg == '2') {
+                    type = '-';
+                }
+                cashNow = Commonfiles.Commons.caculateTwoObj(oldAcct, newAcct, type);
                 tradeInfo.cashAcct = cashNow;
+                req.session.loginInfo.homeAccts.cashAcct = cashNow;
                 Controllers.HomeAccounts.updateHomeAccount(tradeInfo, function(err) {
                     if (err) {
                         res.json(500, {
                             msg: err
                         });
-                    } else {
-                        req.session.loginInfo.homeAccts.cashAcct = cashNow;
                     }
                 });
                 res.json(tradeInfo);
