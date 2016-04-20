@@ -28,6 +28,10 @@ angular.module('homEco').config(function($routeProvider, $locationProvider) {
         templateUrl: '/pages/reports.html',
         controller: 'ReportsCtrl'
     }).
+    when('/rtnTotal', {
+        templateUrl: '/pages/main.html',
+        controller: 'MainCtrl'
+    }).
     otherwise({
         redirectTo: '/login'
     });

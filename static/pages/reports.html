@@ -1,53 +1,12 @@
             <div class="panel panel-success" style="height:758px;overflow: hidden;">
-              <div class="panel-heading"><label style="font-size: 14pt">统计报表及评级</label></div>
+              <div class="panel-heading"><label style="font-size: 14pt">统计图表及评级</label></div>
               <div class="panel-body">
                 <form class="form-inline" ng-submit="saveIncome()">
                   <div style="width:100%">
                     <div style="width:100%">
-                    <div class="input-group" style="float: left">
-                      <input type="text" ng-model="typeIncome" class="form-control" style="width:60%" required disabled placeholder="请选择收入种别" />
-                      <div class="btn-group">
-                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">选择<span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                          <li><a href="javascript:;" ng-click="select('工资')">工资</a></li>
-                          <li><a href="javascript:;" ng-click="select('补贴')">补贴</a></li>
-                          <li><a href="javascript:;" ng-click="select('理财收入')">理财收入</a></li>
-                        </ul>
-                      </div>
+
                     </div>
-                    <div style="margin-left: 20px;float:left;">
-                      <div class="date input-group form_datetime">
-                        <input size="16" type="text" class="form-control" ng-model="selectedDate" placeholder="请选选择日期" required disabled />
-                        <span class="input-group-addon"><a href="javascript:;"><i class="glyphicon glyphicon-th"></i></a></span>
-                        <span class="input-group-addon"><a href="javascript:;" ng-click="deleteDate();$event.stopPropagation();"><i class="glyphicon glyphicon-remove"></i></a></span>
-                      </div>
-                      <script type="text/javascript">
-                        $(".form_datetime").datepicker({
-                            format: "yyyy/mm/dd",
-                            autoclose: true,
-                            todayBtn: true,
-                            todayHighlight: true,
-                            container: 'div.date'
-                        });
-                      </script>
-                    </div>
-                    <div style="margin-left: 30px;float:left;padding-top: 8px;">
-                      <label style="font-size: 12pt" class="text-warning">入账方式</label>
-                      <label style="font-size: 11pt"><input ng-model="payType1" type="checkbox" value="1">现金</label>
-                      <label style="font-size: 11pt"><input ng-model="payType2" type="checkbox" value="2">支付宝</label>
-                      <label style="font-size: 11pt"><input ng-model="payType3" type="checkbox" value="3">微信</label>
-                    </div>
-                    </div>
-                    <br>
-                    <div style="margin-top: 50px;">
-                      <div style="width:100%">
-                        <textarea style="width: 100%;resize: none;" ng-model="content" class="form-control" rows="25" placeholder="收入的大概原因及其他备注" required maxlength="2000"></textarea>
-                      </div>
-                    </div>
-                    
                   </div>
-                  <br>
-                  <div style="margin-top:20px;text-align: center;"><button type="button" class="btn btn-warning btn-enter" ng-click="clear()">清空</button>&nbsp&nbsp<button type="submit" class="btn btn-primary btn-enter">登录</button></div>
                 </form>
               </div>
             </div>

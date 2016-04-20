@@ -3,44 +3,40 @@
               <div class="panel-body">
                 <form class="form-inline" ng-submit="saveIncome()">
                   <div style="width:100%">
-                    <div style="width:100%">
-                      <div class="input-group" style="float: left">
-                        <input type="text" ng-model="tradeInfo.incomeType" class="form-control" style="width:60%" required disabled placeholder="请选择收入种别" />
-                        <div class="btn-group">
-                          <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">选择<span class="caret"></span></button>
-                          <ul class="dropdown-menu">
-                            <li><a href="javascript:;" ng-click="select('工资')">工资</a></li>
-                            <li><a href="javascript:;" ng-click="select('补贴')">补贴</a></li>
-                            <li><a href="javascript:;" ng-click="select('理财收入')">理财收入</a></li>
-                          </ul>
-                        </div>
+                    <div class="input-group" style="float: left">
+                      <input type="text" ng-model="tradeInfo.incomeType" class="form-control" style="width:60%" required disabled placeholder="请选择收入种别" />
+                      <div class="btn-group">
+                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">选择<span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                          <li><a href="javascript:;" ng-click="select('工资')">工资</a></li>
+                          <li><a href="javascript:;" ng-click="select('补贴')">补贴</a></li>
+                          <li><a href="javascript:;" ng-click="select('理财收入')">理财收入</a></li>
+                        </ul>
                       </div>
-                      <div style="margin-left: 10px;float:left;">
-                        <div class="date input-group form_datetime">
-                          <input size="16" type="text" class="form-control" ng-model="tradeInfo.tradeDate" placeholder="请选选择日期" required disabled />
-                          <span class="input-group-addon"><a href="javascript:;"><i class="glyphicon glyphicon-th"></i></a></span>
-                          <span class="input-group-addon"><a href="javascript:;" ng-click="deleteDate();$event.stopPropagation()"><i class="glyphicon glyphicon-remove"></i></a></span>
-                        </div>
-                        <script type="text/javascript">
-                          $(".form_datetime").datepicker({
-                              format: "yyyy/mm/dd",
-                              autoclose: true,
-                              todayBtn: true,
-                              todayHighlight: true,
-                              container: 'div.date'
-                          });
-                        </script>
-                      </div>
-                      <div style="margin-left: 20px;float:left;">
-                        <label style="font-size: 11pt" class="text-warning">实际金额</label>
-                        <input type="text" class="form-control" ng-model="tradeInfo.moneyNum" placeholder="输入金额" size="10" required maxlength="10"></input>
-                      </div>
-                      <div style="margin-left: 10px;float:left;padding-top: 5px;">
-                        <label style="font-size: 11pt;" class="text-warning">入账方式</label>
-                        <label style="font-size: 11pt"><input ng-model="tradeInfo.payType1" type="checkbox">现金</label>
-                        <label style="font-size: 11pt"><input ng-model="tradeInfo.payType2" type="checkbox">支付宝</label>
-                        <label style="font-size: 11pt"><input ng-model="tradeInfo.payType3" type="checkbox">微信</label>
-                      </div>
+                    </div>
+                    <div style="margin-left: 10px;float:left;" class="date input-group form_datetime" id="datetimepicker">
+                      <input size="16" type="text" class="form-control" ng-model="tradeInfo.tradeDate" placeholder="请选选择日期" required disabled />
+                      <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                      <span class="input-group-addon" ng-click="deleteDate();"><i class="glyphicon glyphicon-remove"></i></a></span>
+                      <script type="text/javascript">
+                        $("#datetimepicker").datetimepicker({
+                            format: "yyyy/mm/dd hh:ii:ss",
+                            autoclose: true,
+                            todayBtn: true,
+                            todayHighlight: true,
+                            container: "#datetimepicker"
+                        });
+                      </script>
+                    </div>
+                    <div style="margin-left: 20px;float:left;">
+                      <label style="font-size: 11pt" class="text-warning">实际金额</label>
+                      <input type="text" class="form-control" ng-model="tradeInfo.moneyNum" placeholder="输入金额" size="10" required maxlength="10"></input>
+                    </div>
+                    <div style="margin-left: 10px;float:left;padding-top: 5px;">
+                      <label style="font-size: 11pt;" class="text-warning">入账方式</label>
+                      <label style="font-size: 11pt"><input ng-model="tradeInfo.payType1" type="checkbox">现金</label>
+                      <label style="font-size: 11pt"><input ng-model="tradeInfo.payType2" type="checkbox">支付宝</label>
+                      <label style="font-size: 11pt"><input ng-model="tradeInfo.payType3" type="checkbox">微信</label>
                     </div>
                     <br>
                     <div style="margin-top: 30px;">

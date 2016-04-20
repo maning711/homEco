@@ -1,5 +1,6 @@
 /**
  * created by maning
+ * angualrjs's enter
  */
 angular.module('homEco', ['ngRoute']).
 run(function($window, $rootScope, $http, $location) {
@@ -55,6 +56,16 @@ run(function($window, $rootScope, $http, $location) {
             method: 'GET'
         }).success(function() {
             $location.path('/reports');
+        });
+    };
+    $rootScope.rtnTotal = function () {
+        $http({
+            url: '/api/rtnTotal',
+            method: 'POST'
+        }).success(function() {
+            $location.path('/rtnTotal');
+        }).error(function(data) {
+            $location.path('/rtnTotal');
         });
     };
 });

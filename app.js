@@ -83,22 +83,37 @@ app.post('/api/login', function(req, res) {
                     loginInfo.homeAccts.currentMontLevel = homeAcct.currentMontLevel;
                     loginInfo.homeAccts.cashAcct = homeAcct.cashAcct;
 
-                    // get the user's information
-                    Controllers.User.findUserByInfo(userInfo, function(err, user) {
+                    // get the login user's tradeinfo in this month
+                    var firstDate = Commonfiles.Commons.getFirstAndLastMonthDay().firstDate;
+                    var lastDate = Commonfiles.Commons.getFirstAndLastMonthDay().lastDate;
+                    userInfo.firstDate = firstDate;
+                    userInfo.lastDate = lastDate;
+                    Controllers.TradeRecodes.findTradesOfUser(userInfo, function(err, trade) {
                         if (err) {
                             res.json(500, {
                                 msg: err
                             });
                         } else {
+                            loginInfo.tradesOfUser = trade;
 
-                            // return the user and account information to frontend
-                            if (user != null) {
-                                req.session._userId = user._id;
-                                loginInfo.logUsers.username = user.username;
-                                loginInfo.logUsers.password2 = user.password2;
-                                req.session.loginInfo = loginInfo;
-                                res.json(loginInfo);
-                            }
+                            // get the user's information
+                            Controllers.User.findUserByInfo(userInfo, function(err, user) {
+                                if (err) {
+                                    res.json(500, {
+                                        msg: err
+                                    });
+                                } else {
+
+                                    // return the user and account information to frontend
+                                    if (user != null) {
+                                        req.session._userId = user._id;
+                                        loginInfo.logUsers.username = user.username;
+                                        loginInfo.logUsers.password2 = user.password2;
+                                        req.session.loginInfo = loginInfo;
+                                        res.json(loginInfo);
+                                    }
+                                }
+                            });
                         }
                     });
                 }
@@ -195,6 +210,28 @@ app.post('/api/saveTradeInfo', function(req, res) {
     } else {
         res.json(403);
     }
+});
+
+// search the tradesInfo
+app.post('/api/rtnTotal', function(req, res) {
+    var userInfo = {};
+    var loginInfo = {};
+debugger;
+    // get the login user's tradeinfo in this month
+    var firstDate = Commonfiles.Commons.getFirstAndLastMonthDay().firstDate;
+    var lastDate = Commonfiles.Commons.getFirstAndLastMonthDay().lastDate;
+    userInfo.lastDate = lastDate;
+    userInfo.firstDate = firstDate;
+    Controllers.TradeRecodes.findTradesOfUser(userInfo, function(err, trade) {
+        if (err) {
+            res.json(500, {
+                msg: err
+            });
+        } else {
+            loginInfo.tradesOfUser = trade;
+            res.json(loginInfo);
+        }
+    });
 });
 
 // logout the system

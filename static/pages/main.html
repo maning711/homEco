@@ -1,8 +1,53 @@
             <div class="form-group" id="container">
               <div style="height:100px;text-align:cetner">
-                  <ul class="nav nav-tabs">
-                    <li role="presentation" class="active"><a href="#">Home</a></li>
-                    <li role="presentation"><a href="#">Profile</a></li>
-                  </ul>
+                <div class="panel panel-default">
+                  <!-- Default panel contents -->
+                  <div class="panel-heading"><label style="font-size: 14pt">个人消费一览</label></div>
+                  <div class="panel-body">
+                    <div style="border:1px solid #eee;border-left-color:#1b809e;border-left-width:5px;border-radius:8px;padding-left: 15px;padding-right: 15px;padding-top: 5px;padding-bottom: 5px;">
+                      <h4 style="color:#1b809e">{{loginInfo.logUsers.password2}} 的本月消费如下</h4><p>本月计划加薪</p>
+                    </div>
+
+                    <!-- Table -->
+                    <div>
+                      <table class="table table-hover" style="margin-top:10px;">
+                        <thead>
+                          <tr ng-if="loginInfo.tradesOfUser.length != 0">
+                            <th><label style="font-size: 11pt">记账人</label></th>
+                            <th><label style="font-size: 11pt">记账时间</label></th>
+                            <th><label style="font-size: 11pt">金额（元）</label></th>
+                            <th><label style="font-size: 11pt">交易类型</label></th>
+                            <th><label style="font-size: 11pt">交易方式</label></th>
+                            <th><label style="font-size: 11pt">备注信息</label></th>
+                          </tr>
+                          <tr ng-if="loginInfo.tradesOfUser.length == 0">
+                            <th style="color:red">没有入出账记录。。。</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="success" ng-repeat="trade in loginInfo.tradesOfUser" ng-if="trade.tradeFlg == '1'">
+                            <td><label style="font-size: 11pt">{{trade.username}}</label></td>
+                            <td><label style="font-size: 11pt">{{trade.tradeDate}}</label></td>
+                            <td><label style="font-size: 11pt">{{trade.moneyNum}}</label></td>
+                            <td><label style="font-size: 11pt">{{trade.incomeType}}</label></td>
+                            <td><label style="font-size: 11pt">{{trade.payType}}</label></td>
+                            <td><label style="font-size: 11pt">{{trade.content}}</label></td>
+                          </tr>
+                          <tr class="danger" ng-repeat="trade in loginInfo.tradesOfUser" ng-if="trade.tradeFlg == '2'">
+                            <td><label style="font-size: 11pt">{{trade.username}}</label></td>
+                            <td><label style="font-size: 11pt">{{trade.tradeDate}}</label></td>
+                            <td><label style="font-size: 11pt">{{trade.moneyNum}}</label></td>
+                            <td><label style="font-size: 11pt">{{trade.costType}}</label></td>
+                            <td><label style="font-size: 11pt">{{trade.payType}}</label></td>
+                            <td><label style="font-size: 11pt">{{trade.content}}</label></td>
+                          </tr>
+                          <tr ng-if="loginInfo.tradesOfUser.length == 0">
+                            <td><label style="font-size: 11pt">这个月你怎么可能一分钱都没花！！啊！钱呢！</label></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>

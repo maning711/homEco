@@ -20,19 +20,17 @@
                           </ul>
                         </div>
                       </div>
-                      <div style="margin-left: 10px;float:left;">
-                        <div class="date input-group form_datetime">
-                          <input size="16" type="text" class="form-control" ng-model="tradeInfo.tradeDate" placeholder="请选选择日期" required disabled />
-                          <span class="input-group-addon"><a href="javascript:;"><i class="glyphicon glyphicon-th"></i></a></span>
-                          <span class="input-group-addon"><a href="javascript:;" ng-click="deleteDate();$event.stopPropagation()"><i class="glyphicon glyphicon-remove"></i></a></span>
-                        </div>
+                      <div style="margin-left: 10px;float:left;" class="date input-group form_datetime" id="datetimepicker">
+                        <input size="16" type="text" class="form-control" ng-model="tradeInfo.tradeDate" placeholder="请选选择日期" required disabled />
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                        <span class="input-group-addon" ng-click="deleteDate();"><i class="glyphicon glyphicon-remove"></i></a></span>
                         <script type="text/javascript">
-                          $(".form_datetime").datepicker({
-                              format: "yyyy/mm/dd",
+                          $("#datetimepicker").datetimepicker({
+                              format: "yyyy/mm/dd hh:ii:ss",
                               autoclose: true,
                               todayBtn: true,
                               todayHighlight: true,
-                              container: 'div.date'
+                              container: "#datetimepicker"
                           });
                         </script>
                       </div>
