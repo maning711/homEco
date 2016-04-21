@@ -59,11 +59,6 @@ run(function($window, $rootScope, $http, $location) {
         });
     };
     $rootScope.rtnTotal = function () {
-        $http({
-            url: '/api/rtnTotal',
-            method: 'GET'
-        }).success(function(loginInfo) {
-            $location.path('/rtnTotal');
-        })
+        $location.path('/rtnTotal');
     };
 });
