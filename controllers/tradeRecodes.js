@@ -32,7 +32,6 @@ exports.saveTradeInfo = function (tradeInfo, callback) {
 };
 
 exports.findTradesOfUser = function (userInfo, callback) {
-    debugger;
     db.TradeRecds.find({
         username: userInfo.username,
         tradeDate: { "$gt": userInfo.firstDate },

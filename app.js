@@ -214,9 +214,9 @@ app.post('/api/saveTradeInfo', function(req, res) {
 
 // search the tradesInfo
 app.post('/api/rtnTotal', function(req, res) {
-    var userInfo = {};
+    var userInfo = req.session.loginInfo.logUsers;
     var loginInfo = {};
-debugger;
+
     // get the login user's tradeinfo in this month
     var firstDate = Commonfiles.Commons.getFirstAndLastMonthDay().firstDate;
     var lastDate = Commonfiles.Commons.getFirstAndLastMonthDay().lastDate;

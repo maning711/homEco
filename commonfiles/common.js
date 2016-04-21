@@ -28,7 +28,6 @@ exports.caculateTwoObj = function (objA, objB, type) {
         && numA != NaN && numB != NaN 
         && numA != null && numB != null) {
         if (type == '+') {
-            debugger;
             total = numA + numB;
         } else if (type == '-') {
             total = numA - numB;
