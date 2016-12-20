@@ -1,7 +1,8 @@
 /**
  * created by maning
  */
-angular.module('homEco').controller('LoginCtrl', function($scope, $http, $location) {
+angular.module('homEco').controller('LoginCtrl', function($rootScope, $scope, $http, $location) {
+    $rootScope.loginFlag = 0;
     $scope.login = function() {
         $http({
             url: '/api/login',
@@ -9,10 +10,16 @@ angular.module('homEco').controller('LoginCtrl', function($scope, $http, $locati
             data: {
                 userInfo: $scope.userInfo
             }
-        }).success(function(user) {
-            $scope.$emit('login', user);
-            $location.path('/');
-        }).error(function(data) {
+        }).then(function(user) {
+            if (user.status == 200 && user.data.status != 'NG') {
+                $rootScope.messg.loginSuccess = true;
+                $scope.$emit('login', user);
+                $location.path('/');
+            } else if (user.data.status == 'NG') {
+                $rootScope.messg.loginFail = true;
+                $rootScope.loginFailMessage = user.data.message;
+            }
+        },function(data) {
             $location.path('/login');
         })
     }

@@ -14,17 +14,17 @@ run(function($window, $rootScope, $http, $location) {
     $http({
         url: '/api/validate',
         method: 'GET'
-    }).success(function(loginInfo) {
+    }).then(function(loginInfo) {
         $rootScope.loginInfo = loginInfo;
         $location.path('/');
-    }).error(function(data) {
+    },function(data) {
         $location.path('/login');
     });
     $rootScope.logout = function () {
         $http({
             url: '/api/logout',
             method: 'GET'
-        }).success(function() {
+        }).then(function() {
             $rootScope.loginInfo = null;
             $rootScope.messg.saveSuccess = false;
             $rootScope.messg.alertDanger = false;
@@ -38,7 +38,7 @@ run(function($window, $rootScope, $http, $location) {
         $http({
             url: '/api/daliyExp',
             method: 'GET'
-        }).success(function() {
+        }).then(function() {
             $location.path('/daliyExp');
         });
     };
@@ -46,7 +46,7 @@ run(function($window, $rootScope, $http, $location) {
         $http({
             url: '/api/incomes',
             method: 'GET'
-        }).success(function() {
+        }).then(function() {
             $location.path('/incomes');
         });
     };
@@ -54,7 +54,7 @@ run(function($window, $rootScope, $http, $location) {
         $http({
             url: '/api/reports',
             method: 'GET'
-        }).success(function() {
+        }).then(function() {
             $location.path('/reports');
         });
     };

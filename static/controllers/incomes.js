@@ -35,12 +35,12 @@ angular.module('homEco').controller('IncomesCtrl', function($scope, $rootScope, 
             data: {
                 tradeInfo: $scope.tradeInfo
             }
-        }).success(function(tradeInfo) {
+        }).then(function(tradeInfo) {
             $rootScope.messg.saveSuccess = true;
             $rootScope.loginInfo.homeAccts.cashAcct = tradeInfo.cashAcct;
             $scope.clear();
-        }).error(function() {
+        },function() {
             $rootScope.messg.alertDanger = true;
-        })
+        });
     }
 });

@@ -15,14 +15,18 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="#">homEco</a>
         </div>
-        <nav class="collapse navbar-collapse" role="navigation" ng-show="loginInfo.logUsers">
+        <nav class="collapse navbar-collapse" role="navigation">
           <ul class="nav navbar-nav navbar-right" ng-show="loginInfo.logUsers">
             <div style="margin-top: 10px;">
               <li>
                 <div style="color: white">{{loginInfo.logUsers.password2}}</div>
               </li>
+            </div>
+          </ul>
+          <ul>
+            <div style="margin-top: 10px;">
               <li>
-                <a href="#" ng-click="logout()">Log out</a>
+                <a href="#" ng-click="logout()">退出登录</a>
               </li>
             </div>
           </ul>
@@ -31,10 +35,16 @@
     </div>
     <div style="height:60px"></div>
     <!-- message area -->
-    <div class="container alert alert-success" ng-show="messg.saveSuccess" role="alert">登录成功信息！
+    <div class="container alert alert-success" ng-show="messg.loginSuccess" role="alert">登录成功！
+      <button type="button" class="close" aria-label="Close" ng-click="close('loginSuccess')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="container alert alert-danger" ng-show="messg.loginFail" role="alert">{{loginFailMessage}}
+      <button type="button" class="close" aria-label="Close" ng-click="close('loginFail')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="container alert alert-success" ng-show="messg.saveSuccess" role="alert">保存成功信息！
       <button type="button" class="close" aria-label="Close" ng-click="close('saveSuccess')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     </div>
-    <div class="container alert alert-danger" ng-show="messg.alertDanger" role="alert">登录失败信息！请联系管理员
+    <div class="container alert alert-danger" ng-show="messg.alertDanger" role="alert">保存失败信息！请联系管理员
       <button type="button" class="close" aria-label="Close" ng-click="close('alertDanger')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     </div>
     <!-- info area -->
@@ -55,11 +65,12 @@
       </div>
       <div id="right" class="" style="width:85%;float:right;margin: 0 auto;" ng-view></div>
     </div>
+
     <!-- include javascript -->
+    <script type="text/javascript" src="/components/angular/angular.js"></script>
     <script type="text/javascript" src="/components/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="/components/bootstrap/dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="/components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
-    <script type="text/javascript" src="/components/angular/angular.js"></script>
     <script type="text/javascript" src="/components/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="/components/Chart.js/dist/Chart.js"></script>
     <script type="text/javascript" src="/commonfiles/common.js"></script>
