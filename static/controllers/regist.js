@@ -9,10 +9,10 @@ angular.module('homEco').controller('RegistCtrl', function($scope, $http, $locat
             data: {
                 userInfo: $scope.userInfo
             }
-        }).success(function(user) {
+        }).then(function(user) {
             $location.path('/login');
-        }).error(function(data) {
+        },function(data) {
             $location.path('/regist');
-        })
+        });
     }
 });

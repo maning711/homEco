@@ -6,10 +6,10 @@ angular.module('homEco').controller('MainCtrl', function($scope, $http, $locatio
         $http({
             url: '/api/rtnTotal',
             method: 'POST'
-        }).success(function(loginInfo) {
+        }).then(function(loginInfo) {
             $scope.loginInfo = loginInfo;
             $location.path('/');
-        }).error(function() {
+        },function() {
             $location.path('/');
         });
     }  

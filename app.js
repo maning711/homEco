@@ -28,7 +28,7 @@ app.use(session({
     resave: true,
     saveUninitialized: false,
     cookie: {
-        maxAge: 60 * 1000 * 60
+        maxAge: 60 * 1000
     },
     store: sessionStore
 }));
@@ -50,7 +50,10 @@ app.get('/api/validate',function(req, res) {
             }
         });
     } else {
-        res.status(401).json(null);
+        res.status(304).json({
+            fail: 'NG',
+            message: '该用户不存在！'
+        });
     }
 });
 
@@ -95,32 +98,40 @@ app.post('/api/login', function(req, res) {
                             });
                         } else {
                             loginInfo.tradesOfUser = trade;
-
-                            // get the user's information
-                            Controllers.User.findUserByInfo(userInfo, function(err, user) {
-                                if (err) {
-                                    res.json(500, {
-                                        msg: err
-                                    });
-                                } else {
-
-                                    // return the user and account information to frontend
-                                    if (user != null) {
-                                        req.session._userId = user._id;
-                                        loginInfo.logUsers.username = user.username;
-                                        loginInfo.logUsers.password2 = user.password2;
-                                        req.session.loginInfo = loginInfo;
-                                        res.json(loginInfo);
-                                    }
-                                }
-                            });
                         }
                     });
                 }
+
+                // get the user's information
+                Controllers.User.findUserByInfo(userInfo, function(err, user) {
+                    if (err) {
+                        res.json(500, {
+                            msg: err
+                        });
+                    } else {
+
+                        // return the user and account information to frontend
+                        if (user != null) {
+                            req.session._userId = user._id;
+                            loginInfo.logUsers.username = user.username;
+                            loginInfo.logUsers.password2 = user.password2;
+                            req.session.loginInfo = loginInfo;
+                            res.json(loginInfo);
+                        } else {
+                            res.json({
+                                status: 'NG',
+                                message: '用户名密码错误，请确认后再登录！'
+                            });
+                        }
+                    }
+                });
             }
         });
     } else {
-        res.json(403);
+        res.status(200).json({
+            status: 'NG',
+            message: '登录失败！【错误代码：0001】'
+        });
     }
 });
 
@@ -215,7 +226,7 @@ app.post('/api/saveTradeInfo', function(req, res) {
 // search the tradesInfo
 app.post('/api/rtnTotal', function(req, res) {
     var loginInfo = req.session.loginInfo;
-    var userInfo = req.session.loginInfo.logUsers;
+    var userInfo = loginInfo.logUsers;
 
     // get the login user's tradeinfo in this month
     var firstDate = Commonfiles.Commons.getFirstAndLastMonthDay().firstDate;
