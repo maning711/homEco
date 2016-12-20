@@ -50,9 +50,9 @@ app.get('/api/validate',function(req, res) {
             }
         });
     } else {
-        res.status(304).json({
-            fail: 'NG',
-            message: '该用户不存在！'
+        res.status(200).json({
+            status: 'NG',
+            message: '登录失效，请重新登录！'
         });
     }
 });
@@ -98,6 +98,16 @@ app.post('/api/login', function(req, res) {
                             });
                         } else {
                             loginInfo.tradesOfUser = trade;
+                        }
+                    });
+                } else {
+                    Controllers.HomeAccounts.findByDateOrCreate(date, userInfo.username, function(err, homeAcct) {
+                        if (err) {
+                            res.json(500, {
+                                msg: err
+                            });
+                        } else {
+                            console.log('家庭账户初始化成功！');
                         }
                     });
                 }

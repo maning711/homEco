@@ -13,7 +13,7 @@ angular.module('homEco').controller('LoginCtrl', function($rootScope, $scope, $h
         }).then(function(user) {
             if (user.status == 200 && user.data.status != 'NG') {
                 $rootScope.messg.loginSuccess = true;
-                $scope.$emit('login', user);
+                $scope.$emit('login', user.data);
                 $location.path('/');
             } else if (user.data.status == 'NG') {
                 $rootScope.messg.loginFail = true;

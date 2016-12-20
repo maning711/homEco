@@ -7,7 +7,7 @@ angular.module('homEco').controller('MainCtrl', function($scope, $http, $locatio
             url: '/api/rtnTotal',
             method: 'POST'
         }).then(function(loginInfo) {
-            $scope.loginInfo = loginInfo;
+            $scope.loginInfo = loginInfo.data;
             $location.path('/');
         },function() {
             $location.path('/');

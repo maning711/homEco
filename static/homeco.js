@@ -14,9 +14,14 @@ run(function($window, $rootScope, $http, $location) {
     $http({
         url: '/api/validate',
         method: 'GET'
-    }).then(function(loginInfo) {
-        $rootScope.loginInfo = loginInfo;
-        $location.path('/');
+    }).then(function(checkInfo) {
+        if (checkInfo.data.status != 'NG') {
+            $rootScope.loginInfo = checkInfo.data;
+            $location.path('/');
+        } else {
+            alert(checkInfo.data.message);
+            $location.path('/login');
+        }
     },function(data) {
         $location.path('/login');
     });
