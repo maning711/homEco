@@ -50,9 +50,9 @@ app.get('/api/validate',function(req, res) {
             }
         });
     } else {
-        res.status(304).json({
-            fail: 'NG',
-            message: '该用户不存在！'
+        res.status(200).json({
+            status: 'NG',
+            message: '登录失效，请重新登录！'
         });
     }
 });
@@ -98,6 +98,16 @@ app.post('/api/login', function(req, res) {
                             });
                         } else {
                             loginInfo.tradesOfUser = trade;
+                        }
+                    });
+                } else {
+                    Controllers.HomeAccounts.findByDateOrCreate(date, userInfo.username, function(err, homeAcct) {
+                        if (err) {
+                            res.json(500, {
+                                msg: err
+                            });
+                        } else {
+                            console.log('家庭账户初始化成功！');
                         }
                     });
                 }
@@ -149,7 +159,10 @@ app.post('/api/regist', function(req, res) {
             }
         });
     } else {
-        res.json(403);
+        res.status(200).json({
+            status: 'NG',
+            message: '登录失效，请重新登录！'
+        });
     }
 });
 
@@ -157,6 +170,12 @@ app.post('/api/regist', function(req, res) {
 app.post('/api/saveTradeInfo', function(req, res) {
     var tradeInfo = req.body.tradeInfo;
     var tradeFlg = tradeInfo.tradeFlg;
+    if (!req.session.loginInfo) {
+        res.status(200).json({
+            status: 'NG',
+            message: '登录失效，请重新登录！'
+        });
+    }
     tradeInfo.userInfo = req.session.loginInfo.logUsers;
     var timeStmp = new Date().getTime();
     tradeInfo.timeStmp = timeStmp;
@@ -226,23 +245,30 @@ app.post('/api/saveTradeInfo', function(req, res) {
 // search the tradesInfo
 app.post('/api/rtnTotal', function(req, res) {
     var loginInfo = req.session.loginInfo;
-    var userInfo = loginInfo.logUsers;
+    if (loginInfo) {
+        var userInfo = loginInfo.logUsers;
 
-    // get the login user's tradeinfo in this month
-    var firstDate = Commonfiles.Commons.getFirstAndLastMonthDay().firstDate;
-    var lastDate = Commonfiles.Commons.getFirstAndLastMonthDay().lastDate;
-    userInfo.lastDate = lastDate;
-    userInfo.firstDate = firstDate;
-    Controllers.TradeRecodes.findTradesOfUser(userInfo, function(err, trade) {
-        if (err) {
-            res.json(500, {
-                msg: err
-            });
-        } else {
-            loginInfo.tradesOfUser = trade;
-            res.json(loginInfo);
-        }
-    });
+        // get the login user's tradeinfo in this month
+        var firstDate = Commonfiles.Commons.getFirstAndLastMonthDay().firstDate;
+        var lastDate = Commonfiles.Commons.getFirstAndLastMonthDay().lastDate;
+        userInfo.lastDate = lastDate;
+        userInfo.firstDate = firstDate;
+        Controllers.TradeRecodes.findTradesOfUser(userInfo, function (err, trade) {
+            if (err) {
+                res.json(500, {
+                    msg: err
+                });
+            } else {
+                loginInfo.tradesOfUser = trade;
+                res.json(loginInfo);
+            }
+        });
+    } else {
+        res.status(200).json({
+            status: 'NG',
+            message: '登录失效，请重新登录！'
+        });
+    }
 });
 
 // logout the system
