@@ -8,6 +8,9 @@ run(function($window, $rootScope, $http, $location) {
         saveSuccess: false,
         alertDanger: false
     };
+
+    // get child path
+    var pathUrl = $location.path();
     $rootScope.close = function (messageName) {
         $rootScope.messg[messageName] = false;
     };
@@ -18,7 +21,7 @@ run(function($window, $rootScope, $http, $location) {
         if (checkInfo.data.status != 'NG') {
             $rootScope.loginInfo = checkInfo.data;
             $location.path('/');
-        } else {
+        } else if (pathUrl != '/login') {
             alert(checkInfo.data.message);
             $location.path('/login');
         }
@@ -40,6 +43,7 @@ run(function($window, $rootScope, $http, $location) {
         $rootScope.loginInfo = loginInfo;
     });
     $rootScope.daliyExp = function () {
+        checkLoginState();
         $http({
             url: '/api/daliyExp',
             method: 'GET'
@@ -48,6 +52,7 @@ run(function($window, $rootScope, $http, $location) {
         });
     };
     $rootScope.incomes = function () {
+        checkLoginState();
         $http({
             url: '/api/incomes',
             method: 'GET'
@@ -56,6 +61,7 @@ run(function($window, $rootScope, $http, $location) {
         });
     };
     $rootScope.reports = function () {
+        checkLoginState();
         $http({
             url: '/api/reports',
             method: 'GET'
@@ -64,6 +70,14 @@ run(function($window, $rootScope, $http, $location) {
         });
     };
     $rootScope.rtnTotal = function () {
+        checkLoginState();
         $location.path('/rtnTotal');
     };
+
+    var checkLoginState = function () {
+        if (!$rootScope.loginInfo) {
+            alert('登录过期，请重新登录');
+            $rootScope.logout()
+        }
+    }
 });
