@@ -33,7 +33,7 @@ app.use(session({
     store: sessionStore
 }));
 
-// check whether is a logined user
+// check whether is a logined user test
 app.get('/api/validate',function(req, res) {
     var userId = req.session._userId;
     var loginInfo = req.session.loginInfo;
