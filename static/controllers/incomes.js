@@ -37,7 +37,7 @@ angular.module('homEco').controller('IncomesCtrl', function($scope, $rootScope, 
             }
         }).then(function(tradeInfo) {
             $rootScope.messg.saveSuccess = true;
-            $rootScope.loginInfo.homeAccts.cashAcct = tradeInfo.cashAcct;
+            $rootScope.loginInfo.homeAccts.cashAcct = tradeInfo.data.cashAcct;
             $scope.clear();
         },function() {
             $rootScope.messg.alertDanger = true;
