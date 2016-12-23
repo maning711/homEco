@@ -39,7 +39,7 @@ angular.module('homEco').controller('DaliyExpCtrl', function($scope, $rootScope,
             }
         }).then(function(tradeInfos) {
             $rootScope.messg.saveSuccess = true;
-            $rootScope.loginInfo.homeAccts.cashAcct = tradeInfos.cashAcct;
+            $rootScope.loginInfo.homeAccts.cashAcct = tradeInfos.data.cashAcct;
             $scope.clear();
         },function() {
             $rootScope.messg.alertDanger = true;

@@ -1,4 +1,4 @@
-            <div class="panel panel-danger" style="height:758px;overflow: hidden;">
+            <div class="panel panel-danger" style="height:558px;overflow: hidden;">
               <div class="panel-heading"><label style="font-size: 14pt">当月日常支出</label></div>
               <div class="panel-body">
                 <form class="form-inline" ng-submit="saveCost()">
@@ -27,7 +27,7 @@
                         <script type="text/javascript">
                           $("#datetimepicker").datetimepicker({
                               format: "yyyy/mm/dd hh:ii:ss",
-                              autoclose: true,
+                              autoClose: true,
                               todayBtn: true,
                               todayHighlight: true,
                               container: "#datetimepicker"
@@ -52,7 +52,7 @@
                     <br>
                     <div style="margin-top: 15px;">
                       <div style="width:100%">
-                        <textarea style="width: 100%;resize: none;" ng-model="tradeInfo.content" class="form-control" rows="25" placeholder="收入详情及其他备注" required maxlength="2000"></textarea>
+                        <textarea style="width: 100%;resize: none;" ng-model="tradeInfo.content" class="form-control" rows="16" placeholder="收入详情及其他备注" required maxlength="2000"></textarea>
                       </div>
                     </div>
                   </div>

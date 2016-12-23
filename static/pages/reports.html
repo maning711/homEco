@@ -1,59 +1,17 @@
-            <div class="panel panel-success" style="height:758px;overflow: hidden;">
+            <div class="panel panel-success" style="height:558px;overflow: hidden;">
               <div class="panel-heading"><label style="font-size: 14pt">统计图表及评级</label></div>
               <div class="panel-body">
-                <form class="form-inline" ng-submit="saveIncome()">
                   <div style="width:100%">
                     <div style="float:left;width:50%">
                       <label for="myChart1">家庭成员月消费柱形图</label>
-                      <canvas id="myChart1" style="width:100%" title="家庭成员月消费柱形图"></canvas>
-                      <script type="text/javascript">
-                        var data1 = {
-                          labels : ["January","February","March","April","May","June","July"],
-                          datasets : [
-                            {
-                              fillColor : "rgba(220,220,220,0.5)",
-                              strokeColor : "rgba(220,220,220,1)",
-                              data : [65,59,90,81,56,55,40]
-                            },
-                            {
-                              fillColor : "rgba(151,187,205,0.5)",
-                              strokeColor : "rgba(151,187,205,1)",
-                              data : [28,48,40,19,96,27,100]
-                            }
-                          ]
-                        }
-                        //Get the context of the canvas element we want to select
-                        var ctx1 = document.getElementById("myChart1").getContext("2d");
-                        var myNewChart = new Chart(ctx1).Bar(data1,null);
-                      </script>
+                      <canvas chartjs-bar-home-total-account id="myChart1" style="width:100%" title="家庭成员月消费柱形图"></canvas>
                     </div>
-                    <div style="float:right;width:50%;">
-                      <label for="myChart2">月消费构成</label>
-                      <canvas id="myChart2" style="width:100%" title="月消费构成"></canvas>
-                      <script type="text/javascript">
-                        var data2 = [
-                          {
-                            value: 30,
-                            color:"#F38630"
-                          },
-                          {
-                            value : 50,
-                            color : "#E0E4CC"
-                          },
-                          {
-                            value : 100,
-                            color : "#69D2E7"
-                          }
-                        ]
-                        //Get the context of the canvas element we want to select
-                        var ctx2 = document.getElementById("myChart2").getContext("2d");
-                        var myNewChart2 = new Chart(ctx2).Pie(data2,null);
-                      </script>
-                    </div>
+                    <!--<div style="float:right;width:50%;">-->
+                      <!--<label for="myChart2">月消费构成</label>-->
+                      <!--<canvas id="myChart2" style="width:100%" title="月消费构成"></canvas>-->
+                    <!--</div>-->
                   </div>
                   <div style="width:100%">
-                    
                   </div>
-                </form>
               </div>
             </div>
